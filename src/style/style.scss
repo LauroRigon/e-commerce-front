@@ -1,3 +1,12 @@
+$primary: #29ADB7;
+
 $box-shadow: 0 0.2em 0.2rem rgba(black, .30);
+$body-bg: #E9EAE9;
+
+$badge-border-radius: 10px;
+
+$border-radius: 10px;
+
+$card-border-radius: $border-radius + 5px;
 
 @import "node_modules/bootstrap/scss/bootstrap";

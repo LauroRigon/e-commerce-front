@@ -6,6 +6,9 @@
           E-commerce
         </router-link>
       </div>
+      <div class="header-center">
+        <product-search />
+      </div>
       <div class="header-right">
         <router-link to="/login" class="btn btn-primary">
           Login
@@ -16,11 +19,15 @@
 </template>
 
 <script>
+import ProductSearch from "./Product/ProductSearch";
 export default {
-  name: "TheHeader"
+  name: "TheHeader",
+  components: { ProductSearch }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.header-center {
+  width: 600px;
+}
 </style>

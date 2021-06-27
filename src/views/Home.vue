@@ -1,20 +1,34 @@
 <template>
   <section>
     <h1 class="text-dark text-center">Compre ou Venda</h1>
-    <product-search />
-    <product-list />
+    <product-list :products="products"/>
   </section>
 </template>
 
 <script>
-import ProductSearch from "../components/Products/ProductSearch";
-import ProductList from "../components/Products/ProductList";
+import ProductList from "../components/Product/ProductList";
+import { fetchProducts } from "@/services/ProductService";
+
 export default {
   name: "Home",
   components: {
     ProductList,
-    ProductSearch,
   },
+  data() {
+    return {
+      products: [],
+    }
+  },
+  created() {
+    this.fetchProducts()
+  },
+  methods: {
+    async fetchProducts() {
+      const { data } = await fetchProducts()
+
+      this.products = data.data
+    }
+  }
 }
 </script>
 
