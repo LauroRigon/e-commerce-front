@@ -4,14 +4,28 @@
 
     </div>
     <div class="product-list-container">
-      <h2>Resultados da pesquisa por: "{{ searchQuery }}"</h2>
-      <product-list
-          v-if="!!products.length"
-          :products="products"
-      />
-      <p v-else>
-        Sem resultados para pesquisa
-      </p>
+      <template v-if="isLoading">
+        <app-loading />
+      </template>
+      <template v-else>
+        <h2 v-show="query.search">Resultados da pesquisa por: "{{ query.search }}"</h2>
+        <template
+            v-if="!!products.length"
+        >
+          <product-list
+              :products="products"
+          />
+          <app-pagination
+              v-if="pagination.total"
+              :length="pagination.last_page"
+              :current="pagination.current_page"
+              @change-page="changePage"
+          />
+        </template>
+        <p v-else>
+          Sem resultados para pesquisa
+        </p>
+      </template>
     </div>
   </section>
 </template>
@@ -19,37 +33,55 @@
 <script>
 import ProductList from "@/components/Product/ProductList";
 import { fetchProducts } from "@/services/ProductService";
+import AppPagination from "../../components/AppPagination";
+import AppLoading from "../../components/AppLoading";
 
 export default {
   name: "ProductSearchPage",
   components: {
+    AppLoading,
+    AppPagination,
     ProductList,
   },
   data() {
     return {
+      isLoading: false,
       products: [],
+      pagination: {},
     }
   },
-
   created() {
     this.fetchProducts()
   },
   computed: {
-    searchQuery() {
-      return this.$route.query.q;
+    query() {
+      return this.$route.query;
     }
   },
   watch: {
-    searchQuery() {
+    query() {
       this.fetchProducts()
     }
   },
   methods: {
     async fetchProducts() {
-      const { data } = await fetchProducts(this.searchQuery)
+      this.isLoading = true
+      this.products = []
+
+      const { data } = await fetchProducts(this.query)
 
       this.products = data.data
-    }
+      this.pagination = data.meta
+      this.isLoading = false
+    },
+    changePage(page) {
+      this.$router.push({
+        query: {
+          ...this.$route.query,
+          page,
+        }
+      })
+    },
   }
 }
 </script>

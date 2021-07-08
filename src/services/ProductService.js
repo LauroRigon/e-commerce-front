@@ -1,5 +1,9 @@
 import api from "./apiClient";
 
 export function fetchProducts(query = null) {
-  return api.get("/products", { params: { search: query } })
+  return api.get("/products", { params: query })
+}
+
+export function fetchProduct(id) {
+  return api.get(`/products/${id}`)
 }

@@ -1,6 +1,6 @@
 <template>
   <li class="product-item card">
-    <div class="product-item__img-container">
+    <div class="product-item__img-container" @click="handleProductClick">
       <img
           class="card-img-top"
           v-if="product.image"
@@ -27,6 +27,11 @@ export default {
       required: true,
     },
   },
+  methods: {
+    handleProductClick() {
+      this.$router.push({ name: "product", params: { id: this.product.id }})
+    }
+  },
 }
 </script>
 
@@ -36,6 +41,7 @@ export default {
 .product-item {
   transition: all .2s;
   overflow: hidden;
+  cursor: pointer;
 
   .card-img-top {
     border-bottom: 1px solid $body-bg;

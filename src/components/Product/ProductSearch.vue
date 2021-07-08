@@ -21,11 +21,11 @@ export default {
     }
   },
   mounted() {
-    this.searchText = this.$route.query.q
+    this.searchText = this.$route.query.search
   },
   methods: {
     searchProducts() {
-      this.$router.push({ name: "search", query: { q: this.searchText } })
+      this.$router.push({ name: "search", query: { search: this.searchText } })
     }
   }
 }

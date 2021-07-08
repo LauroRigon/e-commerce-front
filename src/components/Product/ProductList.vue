@@ -1,15 +1,13 @@
 <template>
-  <transition-group
-      name="animate-list"
+  <ul
       class="product-list"
-      tag="ul"
   >
     <product-item
         v-for="product in products"
         :key="product.id"
         :product="product"
     />
-  </transition-group>
+  </ul>
 </template>
 
 <script>
@@ -48,14 +46,15 @@ export default {
   }
 }
 
-.animate-list-move {
-  transition: transform .3s;
-}
+//.animate-list-move {
+//  transition: transform .3s;
+//}
 .animate-list-enter,
 .animate-list-leave-to {
   opacity: 0;
   transform: translateY(-5%);
 }
+
 .animate-list-enter-active,
 .animate-list-leave-active {
   transition: all .2s;
