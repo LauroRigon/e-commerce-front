@@ -3,16 +3,23 @@
   <label
       v-if="label"
       :for="id"
-      class="form-label"
+      :class="[
+          'form-label',
+          {
+            'form-label--required': required,
+          }
+      ]"
   >
     {{ label }}
   </label>
   <input
       :id="id"
       class="form-control"
+      ref="input"
       v-bind="$attrs"
       :value="value"
       @input="onInput"
+      required="required"
   >
   <template v-if="errors.length">
     <div
@@ -34,7 +41,7 @@ export default {
       default: () => Math.ceil(Math.random() * 10000)
     },
     value: {
-      type: String,
+      type: [String, Number],
       default: "",
     },
     label: {
@@ -45,6 +52,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    required: {
+      type: Boolean,
+      default: false,
+    }
   },
   methods: {
     onInput(e) {
@@ -54,8 +65,11 @@ export default {
 }
 </script>
 
-<style scoped>
-label {
-  font-width: bold;
+<style lang="scss" scoped>
+@import 'src/style/style.scss';
+
+.form-label--required::after {
+  content: "*";
+  color: $danger;
 }
 </style>

@@ -6,6 +6,7 @@ import ProductPage from "@/views/Product/ProductPage"
 import UserAccount from "@/views/UserAccount/UserAccount";
 import Register from "@/views/Auth/Register";
 import AuthPage from "@/views/Auth/AuthPage";
+import AddressPage from "@/views/UserAccount/views/AddressPage";
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,13 @@ const routes = [
     path: "/account",
     name: "user-account",
     component: UserAccount,
+    children: [
+      {
+        path: "/address",
+        name: "account-address",
+        component: AddressPage,
+      },
+    ],
   },
 ]
 
