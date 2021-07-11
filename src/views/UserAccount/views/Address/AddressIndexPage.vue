@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import AddressForm from "@/views/UserAccount/components/AddressForm";
+import AddressForm from "@/views/UserAccount/views/Address/components/AddressForm";
 
 export default {
-  name: "AddressPage",
+  name: "AddressIndexPage",
   components: {AddressForm},
 
 }

@@ -18,16 +18,17 @@
     type="text"
     v-model="form.cep"
     v-mask="'#####-###'"
+    :errors="errors['cep']"
   />
 
-  <template v-if="blockCepRelatedFields">
+  <template v-if="showAddressFields">
     <base-input
       id="address"
       label="Endereço"
       placeholder="Digite seu endereço"
       type="text"
       v-model="form.address"
-      :disabled="blockCepRelatedFields"
+      :disabled="disabledInputs.disableAddress"
     />
     <div class="row">
       <base-input
@@ -57,14 +58,14 @@
         label="Cidade"
         type="text"
         v-model="form.city"
-        :disabled="blockCepRelatedFields"
+        :disabled="disabledInputs.disableCity"
     />
     <base-input
         id="state"
         label="Estado"
         type="text"
         v-model="form.state"
-        :disabled="blockCepRelatedFields"
+        :disabled="disabledInputs.disableState"
     />
   </template>
 </form>
@@ -89,32 +90,65 @@ export default {
         district: "",
         city: null,
         state: null,
-        money: 0,
       },
-      blockCepRelatedFields: false,
+      disabledInputs: {
+        disableAddress: false,
+        disableCity: false,
+        disableState: false,
+      },
+      cepLoaded: false,
+      errors: [],
+    }
+  },
+  computed: {
+    isCepValid() {
+      return this.getCepLength(this.form.cep) === 8
+    },
+    showAddressFields() {
+      return this.isCepValid && this.cepLoaded
     }
   },
   watch: {
     "form.cep"(cep) {
-      const cleanCep = cep.replace("-", "")
-      if (cleanCep.length === 8) {
-        this.fetchCepInfo(cleanCep)
+      if (this.isCepValid) {
+        this.fetchCepInfo(this.clearCep(cep))
       }
     }
   },
   methods: {
+    getCepLength(cep) {
+      return this.clearCep(cep).length
+    },
+    clearCep(cep) {
+      return cep.replace("-", "")
+    },
     async fetchCepInfo(cep) {
+
       try {
+        this.errors = []
+
         const data = await getCepInfo(cep)
+        this.setAddressAndDisableInput(data.logradouro)
+        this.setCityAndDisableInput(data.localidade)
+        this.setStateAndDisableInput(data.uf)
 
-        this.form.address = data.logradouro
-        this.form.city = data.localidade
-        this.form.state = data.uf
-
-        this.blockCepRelatedFields = true
-      }  catch (e) {
-        console.log(e)
+        this.cepLoaded = true
+      } catch (e) {
+        this.cepLoaded = false
+        this.$set(this.errors, "cep", e.message)
       }
+    },
+    setAddressAndDisableInput(address) {
+      this.form.address = address
+      this.disabledInputs.disableAddress = !!address
+    },
+    setCityAndDisableInput(city) {
+      this.form.city = city
+      this.disabledInputs.disableCity = !!city
+    },
+    setStateAndDisableInput(state) {
+      this.form.state = state
+      this.disabledInputs.disableState = !!state
     },
     async saveAddress() {
       // const { data } = await createAddress(this.form)

@@ -1,55 +1,9 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
-import Home from "@/views/Home"
-import ProductSearchPage from "@/views/Product/ProductSearchPage"
-import ProductPage from "@/views/Product/ProductPage"
-import UserAccount from "@/views/UserAccount/UserAccount";
-import Register from "@/views/Auth/Register";
-import AuthPage from "@/views/Auth/AuthPage";
-import AddressPage from "@/views/UserAccount/views/AddressPage";
+import routes from "@/router/routes"
+import store from "@/store"
 
 Vue.use(VueRouter)
-
-const routes = [
-  {
-    path: "/",
-    name: "home",
-    component: Home,
-  },
-  {
-    path: "/busca",
-    name: "search",
-    component: ProductSearchPage,
-  },
-  {
-    path: "/produto/:id",
-    name: "product",
-    props: true,
-    component: ProductPage,
-  },
-  {
-    path: "/register",
-    name: "register",
-    component: Register,
-  },
-  {
-    path: "/login",
-    name: "login",
-    component: AuthPage,
-  },
-  {
-    path: "/account",
-    name: "user-account",
-    component: UserAccount,
-    children: [
-      {
-        path: "/address",
-        name: "account-address",
-        component: AddressPage,
-      },
-    ],
-  },
-]
 
 const router = new VueRouter({
   mode: "history",
@@ -58,6 +12,40 @@ const router = new VueRouter({
   scrollBehavior() {
     return window.scrollTo({ top: 0 })
   }
+})
+
+/**
+ * @param {String} attribute
+ * @param {Array} routes
+ */
+function getInheritanceMetaAttribute(attribute, routes) {
+  return routes.reduce((acc, route) => {
+    if (attribute in route.meta) {
+      return route.meta[attribute]
+    }
+
+    return acc
+  }, false)
+}
+
+router.beforeEach((routeTo, routeFrom, next) => {
+  const isAuthenticated = store.getters["Auth/isAuthenticated"];
+  const isProtectedRoute = getInheritanceMetaAttribute("isProtected", routeTo.matched)
+  const isOnlyGuestRoute = getInheritanceMetaAttribute("onlyGuest", routeTo.matched)
+
+  if (isOnlyGuestRoute && isAuthenticated) {
+    return next(routeFrom)
+  }
+
+  if (!isProtectedRoute) {
+    return next()
+  }
+
+  if (isAuthenticated) {
+    return next()
+  }
+
+  return next({ name: "login" })
 })
 
 export default router

@@ -68,7 +68,7 @@ export default {
       try {
         await this.dispatchLogin(this.form)
 
-        this.$router.push({ name: "user-account" })
+        this.$router.push({ name: "account-profile" })
       } catch ({ response }) {
         if (response.data.errors) {
           this.errors = response.data.errors

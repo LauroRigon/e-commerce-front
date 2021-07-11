@@ -21,9 +21,9 @@
       @input="onInput"
       required="required"
   >
-  <template v-if="errors.length">
+  <template v-if="errorsAsArray.length">
     <div
-        v-for="(error, index) in errors"
+        v-for="(error, index) in errorsAsArray"
         :key="index"
         class="form-text text-danger"
     >{{ error }}</div>
@@ -49,7 +49,7 @@ export default {
       required: false,
     },
     errors: {
-      type: Array,
+      type: [Array, String],
       default: () => [],
     },
     required: {
@@ -57,10 +57,19 @@ export default {
       default: false,
     }
   },
+  computed: {
+    errorsAsArray() {
+      if (Array.isArray(this.errors)) {
+        return this.errors
+      }
+
+      return [this.errors];
+    }
+  },
   methods: {
     onInput(e) {
       this.$emit("input", e.target.value)
-    }
+    },
   },
 }
 </script>
