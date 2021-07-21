@@ -1,54 +1,58 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
   },
-  'extends': [
-    'plugin:vue/essential',
-    'eslint:recommended'
+  "extends": [
+    "plugin:vue/essential",
+    "eslint:recommended",
   ],
   parserOptions: {
-    parser: 'babel-eslint'
+    parser: "babel-eslint",
   },
   "plugins": [
-    "vue"
+    "vue",
   ],
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     "linebreak-style": [
       "error",
-      "unix"
+      "unix",
     ],
     "quotes": [
       "error",
-      "double"
+      "double",
     ],
     "semi": [
       "error",
-      "never"
+      "never",
     ],
     "no-unused-vars": [
-      "error",
+      "warn",
       {
         "vars": "all",
         "args": "after-used",
-        "ignoreRestSiblings": true
-      }
+        "ignoreRestSiblings": true,
+      },
     ],
     "keyword-spacing": [
       "error",
       {
         "before": true,
-        "after": true
-      }
+        "after": true,
+      },
     ],
     "curly": [
       "error",
-      "all"
+      "all",
+    ],
+    "object-curly-spacing": [
+      "error",
+      "always",
     ],
     "vue/html-indent": [
-      "error", 4
+      "error", 4,
     ],
     "comma-dangle": [
       "error",
@@ -57,21 +61,21 @@ module.exports = {
         "objects": "always-multiline",
         "imports": "always-multiline",
         "exports": "always-multiline",
-        "functions": "never"
-      }
+        "functions": "never",
+      },
     ],
     "no-trailing-spaces": [
-      "error"
+      "error",
     ],
     "no-useless-return": [
-      "error"
+      "error",
     ],
     "no-else-return": [
-      "error"
+      "error",
     ],
     "padded-blocks": [
       "error",
-      "never"
-    ]
-  }
+      "never",
+    ],
+  },
 }

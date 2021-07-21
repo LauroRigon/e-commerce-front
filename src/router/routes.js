@@ -1,11 +1,4 @@
 import Home from "@/views/Home"
-import ProductSearchPage from "@/views/Product/ProductSearchPage"
-import ProductPage from "@/views/Product/ProductPage"
-import Register from "@/views/Auth/Register"
-import AuthPage from "@/views/Auth/AuthPage"
-import AccountArea from "@/views/UserAccount/AccountArea"
-import ProfileIndexPage from "@/views/UserAccount/views/Profile/ProfileIndexPage"
-import AddressIndexPage from "@/views/UserAccount/views/Address/AddressIndexPage"
 
 export default [
   {
@@ -16,30 +9,30 @@ export default [
   {
     path: "/busca",
     name: "search",
-    component: ProductSearchPage,
+    component: () => import("@/views/Product/ProductSearchPage"),
   },
   {
     path: "/produto/:id",
     name: "product",
     props: true,
-    component: ProductPage,
+    component: () => import("@/views/Product/ProductPage"),
   },
   {
     path: "/register",
     name: "register",
-    component: Register,
+    component: () => import("@/views/Auth/Register"),
   },
   {
     path: "/login",
     name: "login",
-    component: AuthPage,
+    component: () => import("@/views/Auth/AuthPage"),
     meta: {
       onlyGuest: true,
-    }
+    },
   },
   {
     path: "/account",
-    component: AccountArea,
+    component: () => import("@/views/UserAccount/AccountArea"),
     meta: {
       isProtected: true,
     },
@@ -47,12 +40,12 @@ export default [
       {
         path: "/",
         name: "account-profile",
-        component: ProfileIndexPage,
+        component: () => import("@/views/UserAccount/views/Profile/ProfileIndexPage"),
       },
       {
         path: "address",
         name: "account-address",
-        component: AddressIndexPage,
+        component: () => import("@/views/UserAccount/views/Address/AddressIndexPage"),
       },
     ],
   },

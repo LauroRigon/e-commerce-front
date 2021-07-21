@@ -1,10 +1,10 @@
 <template>
-  <button :class="['btn', variantClass]">
-    <div class="spinner-border spinner-border-sm" role="status" v-if="loading">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <slot />
-  </button>
+    <button :class="['btn', variantClass]">
+        <div class="spinner-border spinner-border-sm" role="status" v-if="loading">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <slot />
+    </button>
 </template>
 
 <script>
@@ -38,8 +38,8 @@ export default {
         return
       }
 
-      return `btn-${this.variant}`;
-    }
+      return `btn-${this.variant}`
+    },
   },
 }
 </script>

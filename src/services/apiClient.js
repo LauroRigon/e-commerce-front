@@ -10,13 +10,13 @@ api.interceptors.request.use(function (request) {
 
   return request
 }, function (error) {
-  return Promise.reject(error);
+  return Promise.reject(error)
 })
 
 export const ApiPlugin = {
   install: (Vue) => {
     Vue.prototype.$api = api
-  }
+  },
 }
 
 export default api

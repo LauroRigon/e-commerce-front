@@ -1,74 +1,79 @@
 <template>
-<form
-    class="col-4"
-    @submit.prevent="saveAddress"
->
-  <base-input
-    id="alias"
-    label="Apelido do endereço"
-    placeholder="Digite um apelido para esse endereço"
-    v-model="form.alias"
-    required
-  />
-
-  <base-input
-    id="cep"
-    label="Cep"
-    placeholder="Digite seu cep"
-    type="text"
-    v-model="form.cep"
-    v-mask="'#####-###'"
-    :errors="errors['cep']"
-  />
-
-  <template v-if="showAddressFields">
-    <base-input
-      id="address"
-      label="Endereço"
-      placeholder="Digite seu endereço"
-      type="text"
-      v-model="form.address"
-      :disabled="disabledInputs.disableAddress"
-    />
-    <div class="row">
-      <base-input
-        id="number"
+    <form
         class="col-4"
-        label="Número"
-        type="number"
-        min="1"
-        v-model="form.number"
-      />
-      <base-input
-        id="number"
-        class="col-8"
-        label="Complemento"
-        type="text"
-        v-model="form.complement"
-      />
-    </div>
-    <base-input
-        id="district"
-        label="Bairro"
-        type="text"
-        v-model="form.district"
-    />
-    <base-input
-        id="city"
-        label="Cidade"
-        type="text"
-        v-model="form.city"
-        :disabled="disabledInputs.disableCity"
-    />
-    <base-input
-        id="state"
-        label="Estado"
-        type="text"
-        v-model="form.state"
-        :disabled="disabledInputs.disableState"
-    />
-  </template>
-</form>
+        @submit.prevent="saveAddress"
+    >
+        <base-input
+            id="alias"
+            label="Apelido do endereço"
+            placeholder="Digite um apelido para esse endereço"
+            v-model="form.alias"
+            required
+        />
+
+        <base-input
+            id="cep"
+            class="mt-2"
+            label="Cep"
+            placeholder="Digite seu cep"
+            type="text"
+            v-model="form.cep"
+            v-mask="'#####-###'"
+            :errors="errors['cep']"
+        />
+
+        <template v-if="showAddressFields">
+            <base-input
+                id="address"
+                class="mt-2"
+                label="Endereço"
+                placeholder="Digite seu endereço"
+                type="text"
+                v-model="form.address"
+                :disabled="disabledInputs.disableAddress"
+            />
+            <div class="row">
+                <base-input
+                    id="number"
+                    class="col-4 mt-2"
+                    label="Número"
+                    type="number"
+                    min="1"
+                    v-model="form.number"
+                />
+                <base-input
+                    id="number"
+                    class="col-8 mt-2"
+                    label="Complemento"
+                    type="text"
+                    v-model="form.complement"
+                />
+            </div>
+            <base-input
+                id="district"
+                class="mt-2"
+                label="Bairro"
+                type="text"
+                v-model="form.district"
+            />
+            <base-input
+                id="city"
+                class="mt-2"
+                label="Cidade"
+                type="text"
+                v-model="form.city"
+                :disabled="disabledInputs.disableCity"
+            />
+            <base-input
+                id="state"
+                class="mt-2"
+                label="Estado"
+                type="text"
+                v-model="form.state"
+                :disabled="disabledInputs.disableState"
+            />
+        </template>
+    </form>
 </template>
 
 <script>
@@ -106,14 +111,14 @@ export default {
     },
     showAddressFields() {
       return this.isCepValid && this.cepLoaded
-    }
+    },
   },
   watch: {
     "form.cep"(cep) {
       if (this.isCepValid) {
         this.fetchCepInfo(this.clearCep(cep))
       }
-    }
+    },
   },
   methods: {
     getCepLength(cep) {
@@ -123,7 +128,6 @@ export default {
       return cep.replace("-", "")
     },
     async fetchCepInfo(cep) {
-
       try {
         this.errors = []
 

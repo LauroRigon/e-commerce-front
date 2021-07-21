@@ -1,12 +1,12 @@
 <template>
-  <footer class="bg-dark py-5 text-white position-relative">
-    <p>teste</p>
-  </footer>
+    <footer class="bg-dark py-5 text-white position-relative">
+        <p>teste</p>
+    </footer>
 </template>
 
 <script>
 export default {
-  name: "TheFooter"
+  name: "TheFooter",
 }
 </script>
 

@@ -1,34 +1,34 @@
 <template>
-<div>
-  <label
-      v-if="label"
-      :for="id"
-      :class="[
-          'form-label',
-          {
-            'form-label--required': required,
-          }
-      ]"
-  >
-    {{ label }}
-  </label>
-  <input
-      :id="id"
-      class="form-control"
-      ref="input"
-      v-bind="$attrs"
-      :value="value"
-      @input="onInput"
-      required="required"
-  >
-  <template v-if="errorsAsArray.length">
-    <div
-        v-for="(error, index) in errorsAsArray"
-        :key="index"
-        class="form-text text-danger"
-    >{{ error }}</div>
-  </template>
-</div>
+    <div>
+        <label
+            v-if="label"
+            :for="id"
+            :class="[
+                'form-label',
+                {
+                    'form-label--required': required,
+                }
+            ]"
+        >
+            {{ label }}
+        </label>
+        <input
+            :id="id"
+            class="form-control"
+            ref="input"
+            v-bind="$attrs"
+            :value="value"
+            @input="onInput"
+            required="required"
+        >
+        <template v-if="errorsAsArray.length">
+            <div
+                v-for="(error, index) in errorsAsArray"
+                :key="index"
+                class="form-text text-danger"
+            >{{ error }}</div>
+        </template>
+    </div>
 </template>
 
 <script>
@@ -38,7 +38,7 @@ export default {
   props: {
     id: {
       type: [String, Number],
-      default: () => Math.ceil(Math.random() * 10000)
+      default: () => Math.ceil(Math.random() * 10000),
     },
     value: {
       type: [String, Number],
@@ -55,7 +55,7 @@ export default {
     required: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   computed: {
     errorsAsArray() {
@@ -63,8 +63,8 @@ export default {
         return this.errors
       }
 
-      return [this.errors];
-    }
+      return [this.errors]
+    },
   },
   methods: {
     onInput(e) {

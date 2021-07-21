@@ -1,27 +1,27 @@
 <template>
-<div class="product-page">
-  <app-loading v-if="!product"/>
-  <div
-      v-else
-      class="product-summary"
-  >
-    {{ product }}
-    <div class="product-gallery">
-      <figure>
-        <img
-            v-if="product.image"
-            :src="product.image"
-            class="img-fluid"
-        />
-      </figure>
+    <div class="product-page">
+        <app-loading v-if="!product"/>
+        <div
+            v-else
+            class="product-summary"
+        >
+            {{ product }}
+            <div class="product-gallery">
+                <figure>
+                    <img
+                        v-if="product.image"
+                        :src="product.image"
+                        class="img-fluid"
+                    />
+                </figure>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 </template>
 
 <script>
-import { fetchProduct } from "@/services/ProductService";
-import AppLoading from "../../components/AppLoading";
+import { fetchProduct } from "@/services/ProductService"
+import AppLoading from "../../components/AppLoading"
 
 export default {
   name: "ProductPage",
@@ -49,7 +49,7 @@ export default {
 
       this.product = data.data
       this.isLoading = false
-    }
+    },
   },
 }
 </script>

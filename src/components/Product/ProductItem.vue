@@ -1,21 +1,21 @@
 <template>
-  <li class="product-item card">
-    <div class="product-item__img-container" @click="handleProductClick">
-      <img
-          class="card-img-top"
-          v-if="product.image"
-          :src="product.image"
-      />
-      <span class="badge bg-danger product-item__discont" v-if="product.discount">{{ product.discount }}% OFF</span>
-    </div>
-    <div class="card-body">
-      <h2 class="product-item__name">{{product.name}}</h2>
-      <p class="product-item__price">
-        <del v-if="product.discount">{{ product.original_price | money }}</del>
-        <ins>{{ product.price | money }}</ins>
-      </p>
-    </div>
-  </li>
+    <li class="product-item card">
+        <div class="product-item__img-container" @click="handleProductClick">
+            <img
+                class="card-img-top"
+                v-if="product.image"
+                :src="product.image"
+            />
+            <span class="badge bg-danger product-item__discont" v-if="product.discount">{{ product.discount }}% OFF</span>
+        </div>
+        <div class="card-body">
+            <h2 class="product-item__name">{{product.name}}</h2>
+            <p class="product-item__price">
+                <del v-if="product.discount">{{ product.original_price | money }}</del>
+                <ins>{{ product.price | money }}</ins>
+            </p>
+        </div>
+    </li>
 </template>
 
 <script>
@@ -30,7 +30,7 @@ export default {
   methods: {
     handleProductClick() {
       this.$router.push({ name: "product", params: { id: this.product.id }})
-    }
+    },
   },
 }
 </script>

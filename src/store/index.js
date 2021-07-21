@@ -9,5 +9,5 @@ export default new Vuex.Store({
   plugins: [persistUserSession],
   modules: {
     Auth,
-  }
+  },
 })

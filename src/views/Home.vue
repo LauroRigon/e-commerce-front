@@ -1,8 +1,8 @@
 <template>
-  <section>
-    <h1 class="text-dark text-center">Compre ou Venda</h1>
-    <product-list :products="products"/>
-  </section>
+    <section>
+        <h1 class="text-dark text-center">Compre ou Venda</h1>
+        <product-list :products="products"/>
+    </section>
 </template>
 
 <script>
@@ -27,8 +27,8 @@ export default {
       const { data } = await fetchProducts()
 
       this.products = data.data
-    }
-  }
+    },
+  },
 }
 </script>
 

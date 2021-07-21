@@ -1,43 +1,43 @@
 <template>
-  <nav>
-    <ul class="app-paginator pagination justify-content-center">
-      <li
-          :class="{ 'page-item': true, disabled: current <= 1 }"
-      >
-        <a
-            class="page-link"
-            href="#"
-            @click="goToPreviousPage()"
-        >
-          Anterior
-        </a>
-      </li>
-      <li
-          v-for="page in pages"
-          :key="page"
-          :class="{ 'page-item': true, 'active': current == page }"
-      >
-        <a
-            class="page-link"
-            href="#"
-            @click="goToPage(page)"
-        >
-          {{ page }}
-        </a>
-      </li>
-      <li
-          :class="{ 'page-item': true, disabled: current >= length }"
-      >
-        <a
-            class="page-link"
-            href="#"
-            @click="goToNextPage()"
-        >
-          Anterior
-        </a>
-      </li>
-    </ul>
-  </nav>
+    <nav>
+        <ul class="app-paginator pagination justify-content-center">
+            <li
+                :class="{ 'page-item': true, disabled: current <= 1 }"
+            >
+                <a
+                    class="page-link"
+                    href="#"
+                    @click="goToPreviousPage()"
+                >
+                    Anterior
+                </a>
+            </li>
+            <li
+                v-for="page in pages"
+                :key="page"
+                :class="{ 'page-item': true, 'active': current == page }"
+            >
+                <a
+                    class="page-link"
+                    href="#"
+                    @click="goToPage(page)"
+                >
+                    {{ page }}
+                </a>
+            </li>
+            <li
+                :class="{ 'page-item': true, disabled: current >= length }"
+            >
+                <a
+                    class="page-link"
+                    href="#"
+                    @click="goToNextPage()"
+                >
+                    Anterior
+                </a>
+            </li>
+        </ul>
+    </nav>
 </template>
 
 <script>
@@ -55,7 +55,7 @@ export default {
     range: {
       type: Number,
       default: 3,
-    }
+    },
   },
   computed: {
     pages() {
@@ -65,7 +65,7 @@ export default {
         pages.push(i)
       }
 
-      return pages;
+      return pages
     },
     rangeStart() {
       const start = this.current - this.range

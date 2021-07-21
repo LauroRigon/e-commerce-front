@@ -1,40 +1,40 @@
 <template>
-  <section class="product-search-page">
-    <div class="product-search-filters">
+    <section class="product-search-page">
+        <div class="product-search-filters">
 
-    </div>
-    <div class="product-list-container">
-      <template v-if="isLoading">
-        <app-loading />
-      </template>
-      <template v-else>
-        <h2 v-show="query.search">Resultados da pesquisa por: "{{ query.search }}"</h2>
-        <template
-            v-if="!!products.length"
-        >
-          <product-list
-              :products="products"
-          />
-          <app-pagination
-              v-if="pagination.total"
-              :length="pagination.last_page"
-              :current="pagination.current_page"
-              @change-page="changePage"
-          />
-        </template>
-        <p v-else>
-          Sem resultados para pesquisa
-        </p>
-      </template>
-    </div>
-  </section>
+        </div>
+        <div class="product-list-container">
+            <template v-if="isLoading">
+                <app-loading />
+            </template>
+            <template v-else>
+                <h2 v-show="query.search">Resultados da pesquisa por: "{{ query.search }}"</h2>
+                <template
+                    v-if="!!products.length"
+                >
+                    <product-list
+                        :products="products"
+                    />
+                    <app-pagination
+                        v-if="pagination.total"
+                        :length="pagination.last_page"
+                        :current="pagination.current_page"
+                        @change-page="changePage"
+                    />
+                </template>
+                <p v-else>
+                    Sem resultados para pesquisa
+                </p>
+            </template>
+        </div>
+    </section>
 </template>
 
 <script>
-import ProductList from "@/components/Product/ProductList";
-import { fetchProducts } from "@/services/ProductService";
-import AppPagination from "../../components/AppPagination";
-import AppLoading from "../../components/AppLoading";
+import ProductList from "@/components/Product/ProductList"
+import { fetchProducts } from "@/services/ProductService"
+import AppPagination from "../../components/AppPagination"
+import AppLoading from "../../components/AppLoading"
 
 export default {
   name: "ProductSearchPage",
@@ -55,13 +55,13 @@ export default {
   },
   computed: {
     query() {
-      return this.$route.query;
-    }
+      return this.$route.query
+    },
   },
   watch: {
     query() {
       this.fetchProducts()
-    }
+    },
   },
   methods: {
     async fetchProducts() {
@@ -79,10 +79,10 @@ export default {
         query: {
           ...this.$route.query,
           page,
-        }
+        },
       })
     },
-  }
+  },
 }
 </script>
 

@@ -1,3 +1,3 @@
-import "./directives/mask"
+import "./directives"
 
 import "./filters/money"

@@ -1,12 +1,13 @@
-import { login, register } from "@/services/AuthService"
-import { logout } from "../../services/AuthService";
+import { getAuthenticatedUser, login, register } from "@/services/AuthService"
+import { logout } from "../../services/AuthService"
+import router from "@/router"
 
 export default {
   namespaced: true,
   state: {
     user: {},
     token: "",
-    items: []
+    items: [],
   },
   mutations: {
     SET_USER(state, payload) {
@@ -34,6 +35,13 @@ export default {
 
         commit("SET_USER", {})
         commit("SET_TOKEN", "")
+
+      router.push({ name: "home" })
+    },
+    async fetchAuthenticatedUser({ commit }) {
+      const { data } = await getAuthenticatedUser()
+
+      commit("SET_USER", data.data)
     },
   },
   getters: {
@@ -42,6 +50,6 @@ export default {
     },
     user(store) {
       return store.user
-    }
-  }
+    },
+  },
 }

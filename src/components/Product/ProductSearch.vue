@@ -1,15 +1,15 @@
 <template>
-  <div class="product-search">
-    <form @submit.prevent="searchProducts">
-      <input
-          id="searchInput"
-          name="search"
-          type="text"
-          placeholder="Pesquise aqui..."
-          v-model="searchText"
-      >
-    </form>
-  </div>
+    <div class="product-search">
+        <form @submit.prevent="searchProducts">
+            <input
+                id="searchInput"
+                name="search"
+                type="text"
+                placeholder="Pesquise aqui..."
+                v-model="searchText"
+            >
+        </form>
+    </div>
 </template>
 
 <script>
@@ -26,8 +26,8 @@ export default {
   methods: {
     searchProducts() {
       this.$router.push({ name: "search", query: { search: this.searchText } })
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -11,7 +11,7 @@ const router = new VueRouter({
   routes,
   scrollBehavior() {
     return window.scrollTo({ top: 0 })
-  }
+  },
 })
 
 /**
@@ -29,7 +29,7 @@ function getInheritanceMetaAttribute(attribute, routes) {
 }
 
 router.beforeEach((routeTo, routeFrom, next) => {
-  const isAuthenticated = store.getters["Auth/isAuthenticated"];
+  const isAuthenticated = store.getters["Auth/isAuthenticated"]
   const isProtectedRoute = getInheritanceMetaAttribute("isProtected", routeTo.matched)
   const isOnlyGuestRoute = getInheritanceMetaAttribute("onlyGuest", routeTo.matched)
 

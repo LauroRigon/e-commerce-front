@@ -1,17 +1,17 @@
 <template>
-  <ul
-      class="product-list"
-  >
-    <product-item
-        v-for="product in products"
-        :key="product.id"
-        :product="product"
-    />
-  </ul>
+    <ul
+        class="product-list"
+    >
+        <product-item
+            v-for="product in products"
+            :key="product.id"
+            :product="product"
+        />
+    </ul>
 </template>
 
 <script>
-import ProductItem from "./ProductItem";
+import ProductItem from "./ProductItem"
 
 export default {
   name: "ProductList",
@@ -19,7 +19,7 @@ export default {
   props: {
     products: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
   },
 }
