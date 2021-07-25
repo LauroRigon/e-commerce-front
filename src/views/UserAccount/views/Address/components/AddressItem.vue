@@ -17,11 +17,15 @@
                             </a>
                         </template>
 
-                        <div class="dropdown__content p-1">
-                            <p>Remover endereço?</p>
-                            <div class="d-grid">
-                                <base-button variant="danger" @click.native.prevent="deleteAddress">Confirmar</base-button>
-                            </div>
+                        <p>Remover endereço?</p>
+                        <div class="d-grid">
+                            <base-button
+                                variant="danger"
+                                @click.native.prevent="deleteAddress"
+                                :loading="isDeleting"
+                            >
+                                Confirmar
+                            </base-button>
                         </div>
                     </base-dropdown>
                 </div>
@@ -51,14 +55,17 @@ export default {
         },
     },
     data() {
-        return {}
+        return {
+            isDeleting: false,
+        }
     },
     methods: {
         async deleteAddress() {
-            console.log(this.address.id)
+            this.isDeleting = true
             await deleteAddress(this.address.id)
 
             this.$emit("address-deleted")
+            this.isDeleting = false
         },
     },
 }
@@ -85,6 +92,7 @@ export default {
 
 <style lang="scss">
 .dropdown-confirm {
+    padding: 10px;
     width: 250px;
 }
 </style>
