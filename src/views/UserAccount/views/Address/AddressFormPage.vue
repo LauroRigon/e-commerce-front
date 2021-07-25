@@ -2,7 +2,9 @@
     <div class="address-create-page">
         <router-link :to="{ name: 'account-address' }">Voltar</router-link>
         <h3>Criar novo endereço</h3>
+        <app-loading v-if="isLoadingAddress"/>
         <address-form
+            v-else
             @saved="handleSave"
             :edit-id="id"
             :edit-data="address"
@@ -12,11 +14,12 @@
 
 <script>
 import AddressForm from "@/views/UserAccount/views/Address/components/AddressForm"
-import { createAddress, updateAddress, fetchAddress } from "@/services/AddressService"
+import { fetchAddress } from "@/services/AddressService"
+import AppLoading from "@/components/AppLoading"
 
 export default {
     name: "AddressFormPage",
-    components: { AddressForm },
+    components: { AppLoading, AddressForm },
     props: {
         id: {
             type: Number,
@@ -25,6 +28,7 @@ export default {
     },
     data() {
         return {
+            isLoadingAddress: false,
             address: null,
         }
     },
@@ -35,9 +39,11 @@ export default {
     },
     methods: {
         async fetchAddress() {
+            this.isLoadingAddress = true
             const { data } = await fetchAddress(this.id)
 
             this.address = data.data
+            this.isLoadingAddress = false
         },
         handleSave() {
             this.$router.push({ name: "account-address" })
