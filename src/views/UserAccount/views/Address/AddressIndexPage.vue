@@ -8,10 +8,15 @@
                 v-else
                 class="address-list-wrapper"
             >
+                <p v-if="!addresses.length" class="text-center">
+                    Nenhum endereço cadastrado
+                </p>
                 <address-item
+                    v-else
                     v-for="address in addresses"
                     :key="address.id"
                     :address="address"
+                    @address-deleted="fetchAddresses"
                 />
             </div>
         </transition>
@@ -51,10 +56,22 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .address-list-wrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 300px));
-    grid-gap: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .address-item {
+        min-width: 300px;
+        width: 100%;
+        padding: 3px 10px;
+
+    }
+    @media (min-width: 826px) {
+        .address-item {
+            width: 50%;
+        }
+    }
 }
 </style>

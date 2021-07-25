@@ -15,3 +15,7 @@ export function fetchAddress(id) {
 export function listAddress() {
   return api.get("/address")
 }
+
+export function deleteAddress(id) {
+  return api.delete(`/address/${id}`)
+}
