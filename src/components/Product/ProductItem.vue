@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     handleProductClick() {
-      this.$router.push({ name: "product", params: { id: this.product.id }})
+      this.$router.push({ name: "product", params: { id: this.product.id } })
     },
   },
 }

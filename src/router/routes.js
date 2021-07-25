@@ -47,6 +47,17 @@ export default [
         name: "account-address",
         component: () => import("@/views/UserAccount/views/Address/AddressIndexPage"),
       },
+      {
+        path: "address/create",
+        name: "account-address-create",
+        component: () => import("@/views/UserAccount/views/Address/AddressFormPage"),
+      },
+      {
+        path: "address/update/:id",
+        name: "account-address-update",
+        props: true,
+        component: () => import("@/views/UserAccount/views/Address/AddressFormPage"),
+      },
     ],
   },
 ]

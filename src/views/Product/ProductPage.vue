@@ -25,7 +25,7 @@ import AppLoading from "../../components/AppLoading"
 
 export default {
   name: "ProductPage",
-  components: {AppLoading},
+  components: { AppLoading },
   props: {
     id: {
       type: [Number, String],

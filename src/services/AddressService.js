@@ -8,6 +8,10 @@ export function updateAddress(id, addressData) {
   return api.put(`/address/${id}`, addressData)
 }
 
+export function fetchAddress(id) {
+  return api.get(`/address/${id}`)
+}
+
 export function listAddress() {
-  return api.get("/products")
+  return api.get("/address")
 }

@@ -39,49 +39,30 @@
 <script>
 import BaseInput from "@/components/Base/BaseInput"
 import BaseButton from "@/components/Base/BaseButton"
-import {updateAccount} from "@/services/AccountService"
+import { updateAccount } from "@/services/AccountService"
+import EditableFormComponent from "@/mixins/EditableFormComponent"
 
 export default {
-  name: "ProfileForm",
-  components: { BaseButton, BaseInput },
-  props: {
-    editId: {
-      type: Number,
-      default: null,
+    name: "ProfileForm",
+    components: { BaseButton, BaseInput },
+    mixins: [EditableFormComponent],
+    data() {
+        return {
+            form: {
+                name: "",
+                email: "",
+                cpf: "",
+                phone: "",
+            },
+        }
     },
-    editData: {
-      type: Object,
-      default: () => ({ empty: true }),
-    },
-  },
-  data() {
-    return {
-      form: {
-        name: "",
-        email: "",
-        cpf: "",
-        phone: "",
-      },
-    }
-  },
-  created() {
-    this.assignFormEditData(this.editData)
-  },
-  methods: {
-    assignFormEditData(data) {
-      this.form = { ...this.form, ...data }
-    },
-    async saveProfile() {
-      const { data } = await updateAccount(this.editId, this.form)
+    methods: {
+        async saveProfile() {
+            const { data } = await updateAccount(this.editId, this.form)
 
-      console.log(data)
+            console.log(data)
+        },
     },
-  },
-  watch: {
-    editData(newData) {
-      this.assignFormEditData(newData)
-    },
-  },
 }
 </script>
 

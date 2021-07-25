@@ -7,12 +7,12 @@
 
 <script>
 import ProfileForm from "@/views/UserAccount/views/Profile/components/ProfileForm"
-import {mapActions} from "vuex"
+import { mapActions } from "vuex"
 
 
 export default {
   name: "ProfileIndexPage",
-  components: {ProfileForm},
+  components: { ProfileForm },
   data() {
     return {
       profile: {},

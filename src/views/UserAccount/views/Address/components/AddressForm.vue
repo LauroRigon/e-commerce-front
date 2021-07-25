@@ -72,6 +72,15 @@
                 v-model="form.state"
                 :disabled="disabledInputs.disableState"
             />
+
+            <base-button
+                variant="primary"
+                class="mt-2"
+                type="submit"
+                :loading="isLoading"
+            >
+                Salvar
+            </base-button>
         </template>
     </form>
 </template>
@@ -79,85 +88,99 @@
 <script>
 import BaseInput from "@/components/Base/BaseInput"
 import { getCepInfo } from "@/services/externals/CepService"
+import BaseButton from "@/components/Base/BaseButton"
+import EditableFormComponent from "@/mixins/EditableFormComponent"
+import { createAddress, updateAddress } from "@/services/AddressService"
 // import { createAddress } from "@/services/AddressService"
 
 export default {
-  name: "AddressForm",
-  components: {BaseInput},
-  data() {
-    return {
-      form: {
-        alias: "",
-        cep: "",
-        address: "",
-        number: null,
-        complement: "",
-        district: "",
-        city: null,
-        state: null,
-      },
-      disabledInputs: {
-        disableAddress: false,
-        disableCity: false,
-        disableState: false,
-      },
-      cepLoaded: false,
-      errors: [],
-    }
-  },
-  computed: {
-    isCepValid() {
-      return this.getCepLength(this.form.cep) === 8
+    name: "AddressForm",
+    components: { BaseButton, BaseInput },
+    mixins: [EditableFormComponent],
+    data() {
+        return {
+            isLoading: false,
+            form: {
+                alias: "",
+                cep: "",
+                address: "",
+                number: null,
+                complement: "",
+                district: "",
+                city: null,
+                state: null,
+            },
+            disabledInputs: {
+                disableAddress: false,
+                disableCity: false,
+                disableState: false,
+            },
+            cepLoaded: false,
+            errors: [],
+        }
     },
-    showAddressFields() {
-      return this.isCepValid && this.cepLoaded
+    computed: {
+        isCepValid() {
+            return this.getCepLength(this.form.cep) === 8
+        },
+        showAddressFields() {
+            return this.isCepValid && this.cepLoaded
+        },
     },
-  },
-  watch: {
-    "form.cep"(cep) {
-      if (this.isCepValid) {
-        this.fetchCepInfo(this.clearCep(cep))
-      }
+    watch: {
+        "form.cep"(cep) {
+            if (this.isCepValid) {
+                this.fetchCepInfo(this.clearCep(cep))
+            }
+        },
     },
-  },
-  methods: {
-    getCepLength(cep) {
-      return this.clearCep(cep).length
-    },
-    clearCep(cep) {
-      return cep.replace("-", "")
-    },
-    async fetchCepInfo(cep) {
-      try {
-        this.errors = []
+    methods: {
+        getCepLength(cep) {
+            return this.clearCep(cep).length
+        },
+        clearCep(cep) {
+            return cep.replace("-", "")
+        },
+        async fetchCepInfo(cep) {
+            try {
+                this.errors = []
 
-        const data = await getCepInfo(cep)
-        this.setAddressAndDisableInput(data.logradouro)
-        this.setCityAndDisableInput(data.localidade)
-        this.setStateAndDisableInput(data.uf)
+                const data = await getCepInfo(cep)
+                this.setAddressAndDisableInput(data.logradouro)
+                this.setCityAndDisableInput(data.localidade)
+                this.setStateAndDisableInput(data.uf)
 
-        this.cepLoaded = true
-      } catch (e) {
-        this.cepLoaded = false
-        this.$set(this.errors, "cep", e.message)
-      }
+                this.cepLoaded = true
+            } catch (e) {
+                this.cepLoaded = false
+                this.$set(this.errors, "cep", e.message)
+            }
+        },
+        setAddressAndDisableInput(address) {
+            this.form.address = address
+            this.disabledInputs.disableAddress = !!address
+        },
+        setCityAndDisableInput(city) {
+            this.form.city = city
+            this.disabledInputs.disableCity = !!city
+        },
+        setStateAndDisableInput(state) {
+            this.form.state = state
+            this.disabledInputs.disableState = !!state
+        },
+        async saveAddress() {
+            try {
+                this.isLoading = true
+                const { data } = this.isEditing ? await updateAddress(this.editId, this.form) : await createAddress(this.form)
+
+                this.$emit("saved", data)
+            } catch (e) {
+                console.log(e)
+            }
+
+            this.isLoading = false
+        },
     },
-    setAddressAndDisableInput(address) {
-      this.form.address = address
-      this.disabledInputs.disableAddress = !!address
-    },
-    setCityAndDisableInput(city) {
-      this.form.city = city
-      this.disabledInputs.disableCity = !!city
-    },
-    setStateAndDisableInput(state) {
-      this.form.state = state
-      this.disabledInputs.disableState = !!state
-    },
-    async saveAddress() {
-      // const { data } = await createAddress(this.form)
-    },
-  },
 }
 </script>
 

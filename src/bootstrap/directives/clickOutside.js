@@ -21,7 +21,7 @@ const clickHandler = "ontouchstart" in document.documentElement ? "ontouchstart"
 export default {
   bind: (el, binding, vNode) => {
     function handler(e) {
-      console.log({contain: el.contains(e.target)})
+      console.log({ contain: el.contains(e.target) })
 
       if (!vNode.context) {return}
       const elements = e.path || (e.composedPath && e.composedPath())

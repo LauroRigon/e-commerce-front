@@ -47,7 +47,7 @@ import BaseInput from "@/components/Base/BaseInput"
 
 export default {
   name: "Login",
-  components: {BaseInput, BaseButton},
+  components: { BaseInput, BaseButton },
   data() {
     return {
       form: {

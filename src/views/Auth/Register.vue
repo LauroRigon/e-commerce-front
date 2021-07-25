@@ -54,7 +54,7 @@ import BaseInput from "@/components/Base/BaseInput"
 
 export default {
   name: "Register",
-  components: {BaseInput, BaseButton},
+  components: { BaseInput, BaseButton },
   data() {
     return {
       form: {
