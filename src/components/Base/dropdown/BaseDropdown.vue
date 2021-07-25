@@ -10,7 +10,7 @@
             >Drop
             </div>
         </slot>
-        <transition name="show">
+        <transition name="fade">
             <ul
                 v-show="visible"
                 class="dropdown-menu"
@@ -86,20 +86,6 @@ export default {
 </script>
 
 <style scoped>
-.show-enter,
-.show-leave-to {
-    transform: scaleY(0);
-}
-.show-enter-active,
-.show-leave-active {
-    transition: transform .1s;
-    transform-origin: top center;
-}
-
-.show-enter-to {
-    transform: scaleY(1);
-}
-
 .base-dropdown {
     position: relative;
     display: inline-block;

@@ -2,17 +2,19 @@
     <div class="address-page">
         <h3>Endereços</h3>
         <router-link :to="{ name: 'account-address-create' }" class="btn btn-primary mb-2">Novo endereço</router-link>
-        <app-loading v-if="isLoading" />
-        <div
-            v-else
-            class="address-list-wrapper"
-        >
-            <address-item
-                v-for="address in addresses"
-                :key="address.id"
-                :address="address"
-            />
-        </div>
+        <transition name="fade" mode="out-in">
+            <app-loading v-if="isLoading" />
+            <div
+                v-else
+                class="address-list-wrapper"
+            >
+                <address-item
+                    v-for="address in addresses"
+                    :key="address.id"
+                    :address="address"
+                />
+            </div>
+        </transition>
     </div>
 </template>
 
