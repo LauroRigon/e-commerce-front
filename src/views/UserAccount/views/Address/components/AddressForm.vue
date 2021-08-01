@@ -22,7 +22,8 @@
             :errors="errors['cep']"
         />
 
-        <template v-if="showAddressFields">
+        <app-loading v-if="isLoadingCepInfo" />
+        <template v-else-if="showAddressFields">
             <base-input
                 id="address"
                 class="mt-2"
@@ -91,15 +92,17 @@ import { getCepInfo } from "@/services/externals/CepService"
 import BaseButton from "@/components/Base/BaseButton"
 import EditableFormComponent from "@/mixins/EditableFormComponent"
 import { createAddress, updateAddress } from "@/services/AddressService"
+import AppLoading from "@/components/AppLoading"
 // import { createAddress } from "@/services/AddressService"
 
 export default {
     name: "AddressForm",
-    components: { BaseButton, BaseInput },
+    components: { AppLoading, BaseButton, BaseInput },
     mixins: [EditableFormComponent],
     data() {
         return {
             isLoading: false,
+            isLoadingCepInfo: false,
             form: {
                 alias: "",
                 cep: "",

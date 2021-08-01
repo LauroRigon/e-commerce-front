@@ -1,6 +1,7 @@
 <template>
     <div class="card">
         <div class="card-body">
+            <h3 class="text-center">Criar conta</h3>
             <form
                 class="register-form"
                 @submit.prevent="register"

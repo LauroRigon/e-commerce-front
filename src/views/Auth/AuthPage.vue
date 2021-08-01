@@ -4,7 +4,7 @@
             <login class="bg-body border-0"/>
         </div>
         <div class="register-wrapper">
-            <register class="bg-body border-0" />
+            <register class="bg-body border-0"/>
         </div>
     </section>
 </template>
@@ -14,20 +14,29 @@ import Login from "@/views/Auth/Login"
 import Register from "@/views/Auth/Register"
 
 export default {
-  name: "AuthPage",
-  components: { Register, Login },
+    name: "AuthPage",
+    components: { Register, Login },
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import 'src/style/style.scss';
+
 .auth-page {
-  max-width: 1000px;
-  margin: 0 auto;
-  border-radius: 10px;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 10px;
+    flex-wrap: wrap;
 }
 
 .login-wrapper, .register-wrapper {
-  width: 400px;
-  margin: 0 20px;
+    width: 400px;
+    margin: 10px 20px;
+}
+
+@include media-breakpoint-down(lg) {
+    .login-wrapper, .register-wrapper {
+        flex-grow: 1;
+    }
 }
 </style>

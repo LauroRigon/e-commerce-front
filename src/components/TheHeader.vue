@@ -1,6 +1,6 @@
 <template>
     <header class="bg-dark text-light shadow">
-        <nav class="container-fluid d-flex justify-content-lg-between align-items-center py-3">
+        <nav class="header__nav container-fluid d-flex justify-content-lg-between align-items-center py-3">
             <div class="header-left">
                 <router-link to="/" custom v-slot="{ navigate }">
                     <h3
@@ -34,5 +34,9 @@ export default {
 <style lang="scss" scoped>
 .header-center {
   width: 600px;
+}
+
+.header__nav {
+    flex-wrap: wrap;
 }
 </style>

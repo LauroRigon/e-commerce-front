@@ -1,6 +1,7 @@
 import { getAuthenticatedUser, login, register } from "@/services/AuthService"
-import { logout } from "../../services/AuthService"
+import { logout } from "@/services/AuthService"
 import router from "@/router"
+import { updateAccount } from "@/services/AccountService"
 
 export default {
   namespaced: true,
@@ -42,6 +43,12 @@ export default {
       const { data } = await getAuthenticatedUser()
 
       commit("SET_USER", data.data)
+    },
+    async updateUser({ commit }, { id, userData }) {
+      const { data } = await updateAccount(id, userData)
+      commit("SET_USER", data.data)
+
+      return data.data
     },
   },
   getters: {

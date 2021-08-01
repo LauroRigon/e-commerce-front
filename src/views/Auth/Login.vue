@@ -1,6 +1,7 @@
 <template>
     <div class="card">
         <div class="card-body">
+            <h3 class="text-center">Entrar</h3>
             <form
                 class="login-form"
                 @submit.prevent="login"

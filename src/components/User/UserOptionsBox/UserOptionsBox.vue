@@ -39,7 +39,7 @@ export default {
 
 <style scoped>
 .user-options-box {
-    width: 250px;
+    width: 180px;
 }
 
 .user-options-box__icon {

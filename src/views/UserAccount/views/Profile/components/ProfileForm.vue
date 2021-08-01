@@ -39,7 +39,6 @@
 <script>
 import BaseInput from "@/components/Base/BaseInput"
 import BaseButton from "@/components/Base/BaseButton"
-import { updateAccount } from "@/services/AccountService"
 import EditableFormComponent from "@/mixins/EditableFormComponent"
 
 export default {
@@ -58,9 +57,9 @@ export default {
     },
     methods: {
         async saveProfile() {
-            const { data } = await updateAccount(this.editId, this.form)
+            const data = await this.$store.dispatch("Auth/updateUser", { id: this.editId, userData: this.form })
 
-            console.log(data)
+            this.$emit("saved", data.data)
         },
     },
 }

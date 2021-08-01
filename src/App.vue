@@ -13,6 +13,9 @@
   import TheFooter from "./components/TheFooter"
   export default {
     components: { TheFooter, TheHeader },
+      created() {
+        this.$store.dispatch("Auth/fetchAuthenticatedUser")
+      },
   }
 </script>
 
