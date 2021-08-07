@@ -30,6 +30,7 @@
             type="submit"
             variant="primary"
             class="mt-3 overflow-hidden"
+            :loading="isLoading"
         >
             Salvar alterações
         </base-button>
@@ -40,6 +41,7 @@
 import BaseInput from "@/components/Base/BaseInput"
 import BaseButton from "@/components/Base/BaseButton"
 import EditableFormComponent from "@/mixins/EditableFormComponent"
+import { errorsToList } from "@/helpers/errors"
 
 export default {
     name: "ProfileForm",
@@ -53,13 +55,30 @@ export default {
                 cpf: "",
                 phone: "",
             },
+            isLoading: false,
         }
     },
     methods: {
         async saveProfile() {
-            const data = await this.$store.dispatch("Auth/updateUser", { id: this.editId, userData: this.form })
+            try {
+                this.isLoading = true
+                const data = await this.$store.dispatch("Auth/updateUser", { id: this.editId, userData: this.form })
 
-            this.$emit("saved", data.data)
+                this.$store.commit("addNotification", {
+                    type: "success",
+                    message: "Salvo com sucesso!",
+                })
+
+                this.$emit("saved", data.data)
+            } catch ({ response }) {
+                this.$store.commit("addNotification", {
+                    type: "danger",
+                    title: response.data.message,
+                    message: errorsToList(response.data.errors),
+                })
+            }
+
+            this.isLoading = false
         },
     },
 }

@@ -93,6 +93,7 @@ import BaseButton from "@/components/Base/BaseButton"
 import EditableFormComponent from "@/mixins/EditableFormComponent"
 import { createAddress, updateAddress } from "@/services/AddressService"
 import AppLoading from "@/components/AppLoading"
+import { errorsToList } from "@/helpers/errors"
 // import { createAddress } from "@/services/AddressService"
 
 export default {
@@ -178,7 +179,7 @@ export default {
 
                 this.$emit("saved", data)
             } catch (e) {
-                console.log(e)
+                // this.$store.commit("addNotification", { type: "danger", title: errorsToList(e.data)})
             }
 
             this.isLoading = false
