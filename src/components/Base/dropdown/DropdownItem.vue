@@ -12,7 +12,6 @@ export default {
     },
     methods: {
         closeDropdown() {
-            console.log(this.hideDropdown)
             this.hideDropdown()
         },
     },

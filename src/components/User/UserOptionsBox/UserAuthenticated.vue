@@ -1,6 +1,6 @@
 <template>
     <div>
-        <base-dropdown drop-side="bottom-middle">
+        <base-dropdown placement="bottom">
             <template v-slot:trigger="{ toggleVisibility }">
                 <span @click="toggleVisibility">
                     Olá, {{ user.name }}

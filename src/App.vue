@@ -3,8 +3,6 @@
         <notification-container/>
         <the-header/>
         <main class="flex-grow-1">
-            <a @click="$store.commit('addNotification', { type: 'danger', title: 'Opa seuuu', message: 'Carai meu mas q pora udiasuihduihsah uihdius ai' })">aaaa</a>
-
             <router-view/>
         </main>
         <the-footer/>
@@ -20,8 +18,10 @@ export default {
     components: { NotificationContainer, TheFooter, TheHeader },
     created() {
         this.$store.dispatch("Auth/fetchAuthenticatedUser")
-      },
-  }
+        // this.$store.commit("addNotification", { type: "success", title: "Opa", message: "Eita meu" })
+        // this.$store.commit("addNotification", { type: "danger", title: "Opa seuuu", message: "Carai meu mas q pora udiasuihduihsah uihdius ai" })
+    },
+}
 </script>
 
 <style lang="scss">

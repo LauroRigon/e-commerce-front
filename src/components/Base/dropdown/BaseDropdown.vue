@@ -3,18 +3,23 @@
         class="base-dropdown"
         v-click-outside="clickOutside"
     >
-        <slot name="trigger" v-bind="{ toggleVisibility, showDropdown, hideDropdown, visible }">
-            <div
-                class="dropdown--button"
-                @click.stop="toggleVisibility"
-            >Drop
-            </div>
-        </slot>
+        <span class="dropdown-trigger--wrapper" ref="triggerRef">
+            <slot
+                name="trigger"
+                v-bind="{ toggleVisibility, showDropdown, hideDropdown, visible }"
+            >
+                <div
+                    class="dropdown--button"
+                    @click.stop="toggleVisibility"
+                >Drop
+                </div>
+            </slot>
+        </span>
         <transition name="fade">
             <ul
                 v-show="visible"
                 class="dropdown-menu"
-                :class="[dropSideClass, targetClass]"
+                :class="[targetClass]"
                 ref="dropdownBox"
             >
                 <slot></slot>
@@ -24,26 +29,21 @@
 </template>
 
 <script>
+import { createPopper } from "@popperjs/core"
 
 export default {
     name: "BaseDropdown",
     props: {
-        dropSide: {
+        placement: {
             type: String,
-            default: "bottom-middle",
-            validate: function (value) {
-                return [
-                    "bottom-right",
-                    "bottom-left",
-                    "bottom-middle",
-                    "top-right",
-                    "top-left",
-                    "top-middle",
-                ].contains(value)
-            },
+            default: "bottom",
         },
         targetClass: {
             type: [String, Object, Array],
+        },
+        popperOptions: {
+            type: Object,
+            required: false,
         },
     },
     provide: function () {
@@ -54,15 +54,25 @@ export default {
     data() {
         return {
             visible: false,
+            popperInstance: null,
         }
     },
     computed: {
-        dropSideClass() {
-            return `dropdown-menu__${this.dropSide}`
+        defaultPopperOptions() {
+            return {
+                placement: this.placement,
+            }
+        },
+        mergedPopperOptions() {
+            return { ...this.defaultPopperOptions, ...this.popperOptions }
         },
     },
-    created() {
+    mounted() {
         this.popupItem = this.$el
+        this.setFreshPopperInstance()
+    },
+    destroyed() {
+        this.popperInstance.destroy()
     },
     methods: {
         toggleVisibility() {
@@ -70,20 +80,7 @@ export default {
         },
         showDropdown() {
             this.visible = true
-
-            this.$nextTick(function () {
-                const box = this.$refs.dropdownBox
-                const clientRects = box.getClientRects()[0]
-
-                if (clientRects && clientRects.top < 0) {
-                    box.style.transform = `translateY(${Math.abs(clientRects.top)}px)`
-                }
-
-                if (clientRects && (window.innerHeight < clientRects.bottom)) {
-                    const diff = (clientRects.bottom - window.innerHeight) * -1
-                    box.style.transform = `translateY(${diff}px)`
-                }
-            })
+            this.popperInstance.update()
         },
         hideDropdown() {
             this.visible = false
@@ -91,52 +88,59 @@ export default {
         clickOutside() {
             this.hideDropdown()
         },
+        setFreshPopperInstance() {
+            this.popperInstance && this.popperInstance.destroy()
+            this.popperInstance = createPopper(this.$refs.triggerRef, this.$refs.dropdownBox, this.mergedPopperOptions)
+        },
+    },
+    watch: {
+        mergedPopperOptions() {
+            this.popperInstance.setOptions(this.mergedPopperOptions)
+        },
     },
 }
 </script>
 
 <style scoped>
 .base-dropdown {
-    position: relative;
     display: inline-block;
 }
 
 .dropdown-menu {
     display: block;
-    left: 50%;
 }
 
 /*Top*/
-.dropdown-menu__top-middle {
-    top: 0;
-    transform: translate(-50%, -100%);
-}
+/*.dropdown-menu__top-middle {*/
+/*    top: 0;*/
+/*    transform: translate(-50%, -100%);*/
+/*}*/
 
-.dropdown-menu__top-right {
-    top: 0;
-    right: 0;
-    transform: translateY(-100%);
-}
+/*.dropdown-menu__top-right {*/
+/*    top: 0;*/
+/*    right: 0;*/
+/*    transform: translateY(-100%);*/
+/*}*/
 
-.dropdown-menu__top-left {
-    top: 0;
-    left: 0;
-    transform: translateX(-100%);
-}
+/*.dropdown-menu__top-left {*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    transform: translateX(-100%);*/
+/*}*/
 
-/*Bottom*/
-.dropdown-menu__bottom-middle {
-    top: 100%;
-    transform: translateX(-50%);
-}
-.dropdown-menu__bottom-left {
-    transform: translateX(-100%);
-}
-.dropdown-menu__bottom-right {
-    left: 100%;
-}
+/*!*Bottom*!*/
+/*.dropdown-menu__bottom-middle {*/
+/*    top: 100%;*/
+/*    transform: translateX(-50%);*/
+/*}*/
+/*.dropdown-menu__bottom-left {*/
+/*    transform: translateX(-100%);*/
+/*}*/
+/*.dropdown-menu__bottom-right {*/
+/*    left: 100%;*/
+/*}*/
 
-.dropdown-menu__top {
-    transform: translateY(-100%);
-}
+/*.dropdown-menu__top {*/
+/*    transform: translateY(-100%);*/
+/*}*/
 </style>
