@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ProfileForm from "@/views/UserAccount/views/Profile/components/ProfileForm"
+import ProfileForm from "@/views/App/UserAccount/views/Profile/components/ProfileForm"
 import { mapActions } from "vuex"
 import AppLoading from "@/components/AppLoading"
 

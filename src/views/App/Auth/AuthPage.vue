@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import Login from "@/views/Auth/Login"
-import Register from "@/views/Auth/Register"
+import Login from "@/views/App/Auth/Login"
+import Register from "@/views/App/Auth/Register"
 
 export default {
     name: "AuthPage",
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/style/style.scss';
+@import '../../../style/style';
 
 .auth-page {
     max-width: 1000px;

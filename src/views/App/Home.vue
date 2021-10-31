@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import ProductList from "../components/Product/ProductList"
+import ProductList from "../../components/Product/ProductList"
 import { fetchProducts } from "@/services/ProductService"
 
 export default {

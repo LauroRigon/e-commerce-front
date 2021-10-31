@@ -26,7 +26,7 @@
 <script>
 
 
-import AddressItem from "@/views/UserAccount/views/Address/components/AddressItem"
+import AddressItem from "@/views/App/UserAccount/views/Address/components/AddressItem"
 import { listAddress } from "@/services/AddressService"
 import AppLoading from "@/components/AppLoading"
 

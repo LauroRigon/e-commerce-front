@@ -33,8 +33,8 @@
 <script>
 import ProductList from "@/components/Product/ProductList"
 import { fetchProducts } from "@/services/ProductService"
-import AppPagination from "../../components/AppPagination"
-import AppLoading from "../../components/AppLoading"
+import AppPagination from "../../../components/AppPagination"
+import AppLoading from "../../../components/AppLoading"
 
 export default {
   name: "ProductSearchPage",

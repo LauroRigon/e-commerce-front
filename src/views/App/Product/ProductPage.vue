@@ -36,7 +36,7 @@
 
 <script>
 import { fetchProduct } from "@/services/ProductService"
-import AppLoading from "../../components/AppLoading"
+import AppLoading from "../../../components/AppLoading"
 import BaseInput from "@/components/Base/BaseInput"
 
 export default {
@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/style/style.scss';
+@import '../../../style/style';
 
 .product-view {
     display: flex;

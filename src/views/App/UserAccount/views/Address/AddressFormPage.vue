@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import AddressForm from "@/views/UserAccount/views/Address/components/AddressForm"
+import AddressForm from "@/views/App/UserAccount/views/Address/components/AddressForm"
 import { fetchAddress } from "@/services/AddressService"
 import AppLoading from "@/components/AppLoading"
 
