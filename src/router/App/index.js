@@ -1,4 +1,5 @@
 import Home from "@/views/App/Home"
+import UserAccountRoutes from "@/router/App/user-account"
 
 export default {
   path: "",
@@ -33,5 +34,6 @@ export default {
         onlyGuest: true,
       },
     },
+    UserAccountRoutes,
   ],
 }

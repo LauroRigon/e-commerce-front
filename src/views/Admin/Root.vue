@@ -1,17 +1,21 @@
 <template>
-    <li id="app" class="d-flex flex-column">
+    <div>
         <notification-container/>
-        <main class="flex-grow-1">
-            <router-view/>
-        </main>
-    </li>
+        <div class="page__wrapper">
+            <side-menu />
+            <main class="flex-grow-1">
+                <router-view/>
+            </main>
+        </div>
+    </div>
 </template>
 
 <script>
 import NotificationContainer from "@/components/Notification/NotificationContainer"
+import SideMenu from "@/views/Admin/components/SideMenu"
 
 export default {
-    components: { NotificationContainer },
+    components: { SideMenu, NotificationContainer },
     created() {
         this.$store.dispatch("Auth/fetchAuthenticatedUser")
     },
@@ -22,18 +26,8 @@ export default {
 #app {
     min-height: 100vh;
 }
-
-.fade-enter,
-.fade-leave-to {
-    opacity: 0;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity .2s;
-}
-
-.fade-enter-to {
-    opacity: 1;
+.page__wrapper {
+    display: flex;
+    flex-direction: row;
 }
 </style>
