@@ -10,5 +10,13 @@ export default {
       name: "admin",
       component: () => import("@/views/Admin/Product/ProductsIndex"),
     },
+    {
+      path: "products",
+      name: "admin.products",
+      component: () => import("@/views/Admin/Product/ProductsIndex"),
+      meta: {
+        title: "Produtos",
+      },
+    },
   ],
 }

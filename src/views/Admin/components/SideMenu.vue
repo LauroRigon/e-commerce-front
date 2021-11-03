@@ -14,10 +14,10 @@
                 <input type="text" placeholder="Search...">
             </li>
             <li>
-                <a href="#">
+                <router-link :to="{ name: 'admin.products' }">
                     <i class="fas fa-box-open"></i>
                     <span class="links_name">Produtos</span>
-                </a>
+                </router-link>
             </li>
             <li>
                 <a href="#">
@@ -49,7 +49,7 @@
             <div class="profile">
                 <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" alt="avatar">
                 <div class="profile_details">
-                    <div class="name">Fulano de tal</div>
+                    <div class="name">{{ user.name }}</div>
                     <div class="role">Administrador</div>
                 </div>
                 <i class="fas fa-sign-out-alt logout"></i>
@@ -59,6 +59,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex"
+
 export default {
     name: "SideMenu",
     data() {
@@ -66,11 +68,16 @@ export default {
             open: true,
         }
     },
+    computed: {
+        ...mapGetters({ user: "Auth/user" }),
+    },
     methods: {
         openMenu() {
+            this.$emit("menu-opened")
             this.open = true
         },
         closeMenu() {
+            this.$emit("menu-closed")
             this.open = false
         },
         toggleMenu() {
@@ -85,6 +92,7 @@ export default {
 $primary-light: lighten($primary, 35);
 
 .sidebar {
+    position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
@@ -126,6 +134,7 @@ $primary-light: lighten($primary, 35);
             margin-right: 10px;
             margin-left: 10px;
             font-size: 25px;
+            cursor: pointer;
         }
 
         .logo {
@@ -193,7 +202,7 @@ $primary-light: lighten($primary, 35);
 
                 }
 
-                &:hover {
+                &:hover, &.router-link-active {
                     background-color: $body-bg;
                     color: $primary;
                 }

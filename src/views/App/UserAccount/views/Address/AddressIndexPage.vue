@@ -8,15 +8,15 @@
                 v-else
                 class="address-list-wrapper"
             >
-                <p v-if="!addresses.length" class="text-center">
+                <p v-if="!data.length" class="text-center">
                     Nenhum endereço cadastrado
                 </p>
                 <address-item
                     v-else
-                    v-for="address in addresses"
+                    v-for="address in data"
                     :key="address.id"
                     :address="address"
-                    @address-deleted="fetchAddresses"
+                    @address-deleted="loadData"
                 />
             </div>
         </transition>
@@ -29,28 +29,20 @@
 import AddressItem from "@/views/App/UserAccount/views/Address/components/AddressItem"
 import { listAddress } from "@/services/AddressService"
 import AppLoading from "@/components/AppLoading"
+import ListingIndex from "@/mixins/ListingIndex"
 
 export default {
     name: "AddressIndexPage",
     components: { AppLoading, AddressItem },
+    mixins: [ ListingIndex ],
     data() {
         return {
-            isLoading: false,
-            addresses: [],
+            data: [],
         }
     },
-    created() {
-        this.fetchAddresses()
-    },
     methods: {
-        async fetchAddresses() {
-            this.isLoading = true
-            const { data } = await listAddress()
-
-            this.addresses = data.data
-            this.pagination = data.meta
-
-            this.isLoading = false
+        async getRequest(q) {
+            return listAddress(q)
         },
     },
 }

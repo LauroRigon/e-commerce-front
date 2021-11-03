@@ -1,5 +1,5 @@
 <template>
-    <div class="notification-container">
+    <div class="notification-container" v-if="notifications.length">
         <transition-group name="fade">
             <notification-toast
                 v-for="notification in notifications"
