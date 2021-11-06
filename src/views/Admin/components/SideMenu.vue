@@ -20,10 +20,10 @@
                 </router-link>
             </li>
             <li>
-                <a href="#">
+                <router-link :to="{ name: 'admin.users' }">
                     <i class="fas fa-user"></i>
                     <span class="links_name">User</span>
-                </a>
+                </router-link>
             </li>
             <li>
                 <a href="#">

@@ -40,7 +40,7 @@
 import BaseTable from "@/components/Base/BaseTable"
 import AppPagination from "@/components/AppPagination"
 import AppLoading from "@/components/AppLoading"
-import { fetchProducts } from "@/services/ProductService"
+import { fetchProducts } from "@/services/admin/ProductService"
 import ListingIndex from "@/mixins/ListingIndex"
 import AppQuickDetails from "@/components/AppQuickDetails"
 import ProductDetails from "@/views/Admin/Product/components/ProductDetails"

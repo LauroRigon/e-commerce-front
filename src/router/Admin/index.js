@@ -18,5 +18,13 @@ export default {
         title: "Produtos",
       },
     },
+    {
+      path: "users",
+      name: "admin.users",
+      component: () => import("@/views/Admin/User/UsersIndex"),
+      meta: {
+        title: "Usuários",
+      },
+    },
   ],
 }
