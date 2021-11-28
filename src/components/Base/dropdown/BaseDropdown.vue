@@ -71,7 +71,7 @@ export default {
         this.popupItem = this.$el
         this.setFreshPopperInstance()
     },
-    destroyed() {
+    unmounted() {
         this.popperInstance.destroy()
     },
     methods: {
@@ -94,8 +94,11 @@ export default {
         },
     },
     watch: {
-        mergedPopperOptions() {
-            this.popperInstance.setOptions(this.mergedPopperOptions)
+        mergedPopperOptions: {
+            handler() {
+                this.popperInstance.setOptions(this.mergedPopperOptions)
+            },
+            deep: true,
         },
     },
 }

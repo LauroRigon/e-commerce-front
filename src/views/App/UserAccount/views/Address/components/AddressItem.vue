@@ -7,7 +7,7 @@
                     <router-link :to="{ name: 'account-address-update', params: { id: address.id } }">
                         <i class="fas fa-edit"></i>
                     </router-link>
-                    <base-dropdown :placement="plac" target-class="dropdown-confirm">
+                    <base-dropdown placement="top" target-class="dropdown-confirm">
                         <template v-slot:trigger="{ toggleVisibility }">
                             <a
                                 href="#"
@@ -19,10 +19,6 @@
 
                         <p>Remover endereço?</p>
                         <div class="d-grid">
-                            <button @click="changePlace('top')">Top</button>
-                            <button @click="changePlace('left')">Left</button>
-                            <button @click="changePlace('bottom')">Bottom</button>
-                            <button @click="changePlace('right')">Right</button>
                             <base-button
                                 variant="danger"
                                 @click.native.prevent="deleteAddress"

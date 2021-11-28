@@ -13,14 +13,16 @@
         <div class="card-body">
             <h2 class="product-item__name">{{ product.name }}</h2>
             <p class="product-item__price">
-                <del v-if="product.discount">{{ product.original_price | money }}</del>
-                <ins>{{ product.price | money }}</ins>
+                <del v-if="product.discount">{{ asMoney(product.original_price) }}</del>
+                <ins>{{ asMoney(product.price) }}</ins>
             </p>
         </div>
     </li>
 </template>
 
 <script>
+import { formatMoney } from "@/helpers/currency"
+
 export default {
     props: {
         product: {
@@ -29,6 +31,9 @@ export default {
         },
     },
     methods: {
+        asMoney(value) {
+            return formatMoney(value)
+        },
         handleProductClick() {
             this.$router.push({ name: "product", params: { id: this.product.id } })
         },

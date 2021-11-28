@@ -89,7 +89,6 @@ export default {
 
 <style scoped lang="scss">
 @import "src/style/style";
-$primary-light: lighten($primary, 35);
 
 .sidebar {
     position: fixed;

@@ -10,8 +10,11 @@ export default {
     this.loadData()
   },
   watch: {
-    query() {
-      this.loadData()
+    query: {
+      handler() {
+        this.loadData()
+      },
+      deep: true,
     },
   },
   computed: {

@@ -21,6 +21,7 @@
 
 <script>
 const VARIANTS = {
+    default: ["table-striped"],
     dark: [ "table-dark", "table-striped"],
 }
 
@@ -37,6 +38,7 @@ export default {
         },
         variant: {
             type: String,
+            default: "default",
             validator: (value) => Object.keys(VARIANTS).includes(value),
         },
     },

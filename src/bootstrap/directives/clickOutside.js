@@ -19,7 +19,7 @@ const isPopup = function (popupItem, elements) {
 const clickHandler = "ontouchstart" in document.documentElement ? "ontouchstart" : "click"
 
 export default {
-  bind: (el, binding, vNode) => {
+  beforeMount: (el, binding, vNode) => {
     function handler(e) {
       console.log({ contain: el.contains(e.target) })
 

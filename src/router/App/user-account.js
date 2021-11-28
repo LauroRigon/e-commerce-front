@@ -6,7 +6,7 @@ export default {
   },
   children: [
     {
-      path: "/",
+      path: "",
       name: "account-profile",
       component: () => import("@/views/App/UserAccount/views/Profile/ProfileIndexPage"),
     },

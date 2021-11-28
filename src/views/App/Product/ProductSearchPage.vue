@@ -59,8 +59,11 @@ export default {
     },
   },
   watch: {
-    query() {
-      this.fetchProducts()
+    query: {
+        handler() {
+            this.fetchProducts()
+        },
+        deep: true,
     },
   },
   methods: {

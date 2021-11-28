@@ -17,8 +17,8 @@
             <div class="product-buy-info col-6">
                 <h3 class="product-buy-info__title">{{ product.name }}</h3>
                 <p class="product-buy-info__price">
-                    <del v-if="product.discount">{{ product.original_price | money }}</del>
-                    <ins>{{ product.price | money }}</ins>
+                    <del v-if="product.discount">{{ asMoney(product.original_price) }}</del>
+                    <ins>{{ asMoney(product.price) }}</ins>
                 </p>
                 <div class="row">
                     <div class="col-3">
@@ -38,6 +38,7 @@
 import { fetchProduct } from "@/services/ProductService"
 import AppLoading from "../../../components/AppLoading"
 import BaseInput from "@/components/Base/BaseInput"
+import { formatMoney } from "@/helpers/currency"
 
 export default {
     name: "ProductPage",
@@ -61,6 +62,9 @@ export default {
         this.fetchProduct()
     },
     methods: {
+        asMoney(value) {
+            return formatMoney(value)
+        },
         async fetchProduct() {
             this.isLoading = true
 

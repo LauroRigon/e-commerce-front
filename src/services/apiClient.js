@@ -14,8 +14,8 @@ api.interceptors.request.use(function (request) {
 })
 
 export const ApiPlugin = {
-  install: (Vue) => {
-    Vue.prototype.$api = api
+  install: (app) => {
+    app.config.globalProperties.$api = api
   },
 }
 

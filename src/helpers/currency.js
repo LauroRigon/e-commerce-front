@@ -1,5 +1,3 @@
-import Vue from "vue"
-
-Vue.filter("money", function(value) {
+export function formatMoney(value) {
   return `${value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
-})
+}

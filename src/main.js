@@ -1,4 +1,4 @@
-import Vue from "vue"
+import { createApp } from "vue"
 import App from "./views/App.vue"
 import router from "./router"
 import store from "./store"
@@ -7,11 +7,9 @@ import "./style/style.scss"
 import "@/bootstrap/index"
 import "@fortawesome/fontawesome-free/css/all.css"
 
-Vue.use(ApiPlugin)
-Vue.config.productionTip = false
+const app = createApp(App)
+app.use(ApiPlugin)
+app.use(store)
+app.use(router)
 
-new Vue({
-  router,
-  store,
-  render: h => h(App),
-}).$mount("#app")
+app.mount("#app")

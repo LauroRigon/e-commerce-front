@@ -6,7 +6,7 @@ export default {
   component: () => import("@/views/App/Root"),
   children: [
     {
-      path: "/",
+      path: "",
       name: "home",
       component: Home,
     },

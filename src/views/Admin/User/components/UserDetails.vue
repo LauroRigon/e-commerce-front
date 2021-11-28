@@ -5,6 +5,7 @@
         <h3 class="text-center pt-2">{{ user.name }}</h3>
         <div>
             <h3>Atribuições:</h3>
+            <dynamic-select :options="rolesOptions" @select="addRole"/>
             <ul>
                 <li v-for="role in roles" :key="role.id"> {{  role.name }} </li>
             </ul>
@@ -13,8 +14,12 @@
 </template>
 
 <script>
+import DynamicSelect from "@/components/DynamicSelect/DynamicSelect"
+import { fetchPermissions } from "@/services/admin/UsersService"
+
 export default {
     name: "UserDetails",
+    components: { DynamicSelect },
     props: {
         user: {
             type: Object,
@@ -23,6 +28,32 @@ export default {
     },
     data() {
         return {
+            rolesOptions: [
+                {
+                    id: 1,
+                    selected:  true,
+                    text: "Admin",
+                },
+                {
+                    id: 2,
+                    text: "Gestor",
+                },
+                {
+                    id: 3,
+                    text: "Childrado",
+                    children:  [
+                        {
+                            id: 5,
+                            selected:  true,
+                            text: "AAA",
+                        },
+                        {
+                            id: 6,
+                            text: "BBBB",
+                        },
+                    ],
+                },
+            ],
             roles: [],
         }
     },
@@ -32,10 +63,14 @@ export default {
     methods: {
         fetchPermissions() {
             //passar para externa
-            this.$api.get(`admin/user/${this.user.id}/roles`)
+            console.log(this.$api)
+            fetchPermissions(this.user.id)
             .then(({ data }) => {
                 this.roles = data.data
             })
+        },
+        addRole(role)  {
+            console.log({ add: role })
         },
     },
 }

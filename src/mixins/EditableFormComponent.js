@@ -10,8 +10,11 @@ export default {
     },
   },
   watch: {
-    editData(newData) {
-      this.assignFormEditData(newData)
+    editData: {
+      handler(newData) {
+        this.assignFormEditData(newData)
+      },
+      deep: true,
     },
   },
   created() {

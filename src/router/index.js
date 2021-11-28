@@ -1,12 +1,10 @@
-import Vue from "vue"
-import VueRouter from "vue-router"
+import { createWebHistory } from "vue-router"
 import routes from "@/router/routes"
 import store from "@/store"
+import { createRouter } from "vue-router"
 
-Vue.use(VueRouter)
-
-const router = new VueRouter({
-  mode: "history",
+const router = createRouter({
+  history: createWebHistory(),
   base: process.env.BASE_URL,
   routes,
   scrollBehavior() {
