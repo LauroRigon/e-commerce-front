@@ -1,28 +1,26 @@
 <template>
-    <div
-        class="base-dropdown"
-    >
-        <span class="dropdown-trigger--wrapper" ref="triggerRef">
+    <div class="base-popover">
+        <span class="popover-trigger--wrapper" ref="triggerRef" @click="toggleVisibility">
             <slot
                 name="trigger"
                 v-bind="{ toggleVisibility, showDropdown, hideDropdown, visible }"
             >
                 <div
                     class="dropdown--button"
-                    @click.stop="toggleVisibility"
+                    @click="toggleVisibility"
                 >Drop
                 </div>
             </slot>
         </span>
         <transition name="fade">
-            <ul
+            <div
                 v-show="visible"
                 class="dropdown-menu"
-                :class="[targetClass]"
+                :style="{ padding: `${paddingY} ${paddingX}` }"
                 ref="dropdownBox"
             >
                 <slot></slot>
-            </ul>
+            </div>
         </transition>
     </div>
 </template>
@@ -31,25 +29,26 @@
 import { createPopper } from "@popperjs/core"
 
 export default {
-    name: "BaseDropdown",
+    name: "BasePopover",
     props: {
         placement: {
             type: String,
             default: "bottom",
         },
-        targetClass: {
-            type: [String, Object, Array],
-        },
         popperOptions: {
             type: Object,
             required: false,
         },
+        paddingY: {
+            type: String,
+            default: "5px",
+        },
+        paddingX: {
+            type: String,
+            default: "10px",
+        },
     },
-    provide: function () {
-        return {
-            hideDropdown: this.hideDropdown,
-        }
-    },
+    emits: [],
     data() {
         return {
             visible: false,
@@ -67,14 +66,18 @@ export default {
         },
     },
     mounted() {
-        this.popupItem = this.$el
         this.setFreshPopperInstance()
     },
     unmounted() {
         this.popperInstance.destroy()
     },
     methods: {
+        setFreshPopperInstance() {
+            this.popperInstance && this.popperInstance.destroy()
+            this.popperInstance = createPopper(this.$refs.triggerRef, this.$refs.dropdownBox, this.mergedPopperOptions)
+        },
         toggleVisibility() {
+            console.log("aaa")
             this.visible ? this.hideDropdown() : this.showDropdown()
         },
         showDropdown() {
@@ -84,65 +87,16 @@ export default {
         hideDropdown() {
             this.visible = false
         },
-        clickOutside() {
-            this.hideDropdown()
-        },
-        setFreshPopperInstance() {
-            this.popperInstance && this.popperInstance.destroy()
-            this.popperInstance = createPopper(this.$refs.triggerRef, this.$refs.dropdownBox, this.mergedPopperOptions)
-        },
-    },
-    watch: {
-        mergedPopperOptions: {
-            handler() {
-                this.popperInstance.setOptions(this.mergedPopperOptions)
-            },
-            deep: true,
-        },
     },
 }
 </script>
 
 <style scoped>
-.base-dropdown {
+.base-popover {
     display: inline-block;
 }
 
 .dropdown-menu {
     display: block;
 }
-
-/*Top*/
-/*.dropdown-menu__top-middle {*/
-/*    top: 0;*/
-/*    transform: translate(-50%, -100%);*/
-/*}*/
-
-/*.dropdown-menu__top-right {*/
-/*    top: 0;*/
-/*    right: 0;*/
-/*    transform: translateY(-100%);*/
-/*}*/
-
-/*.dropdown-menu__top-left {*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    transform: translateX(-100%);*/
-/*}*/
-
-/*!*Bottom*!*/
-/*.dropdown-menu__bottom-middle {*/
-/*    top: 100%;*/
-/*    transform: translateX(-50%);*/
-/*}*/
-/*.dropdown-menu__bottom-left {*/
-/*    transform: translateX(-100%);*/
-/*}*/
-/*.dropdown-menu__bottom-right {*/
-/*    left: 100%;*/
-/*}*/
-
-/*.dropdown-menu__top {*/
-/*    transform: translateY(-100%);*/
-/*}*/
 </style>

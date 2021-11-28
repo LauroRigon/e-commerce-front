@@ -7,14 +7,11 @@
                     <router-link :to="{ name: 'account-address-update', params: { id: address.id } }">
                         <i class="fas fa-edit"></i>
                     </router-link>
-                    <base-dropdown placement="top" target-class="dropdown-confirm">
-                        <template v-slot:trigger="{ toggleVisibility }">
-                            <a
-                                href="#"
-                                @click="toggleVisibility"
-                            >
+                    <base-popover placement="top" target-class="dropdown-confirm">
+                        <template v-slot:trigger>
+                            <base-button>
                                 <i class="fas fa-trash"></i>
-                            </a>
+                            </base-button>
                         </template>
 
                         <p>Remover endereço?</p>
@@ -27,7 +24,7 @@
                                 Confirmar
                             </base-button>
                         </div>
-                    </base-dropdown>
+                    </base-popover>
                 </div>
             </div>
             <div class="card-body">
@@ -42,12 +39,12 @@
 <script>
 
 import { deleteAddress } from "@/services/AddressService"
-import BaseDropdown from "@/components/Base/dropdown/BaseDropdown"
 import BaseButton from "@/components/Base/BaseButton"
+import BasePopover from "@/components/Base/popover/BasePopover"
 
 export default {
     name: "AddressItem",
-    components: { BaseButton, BaseDropdown },
+    components: { BasePopover, BaseButton },
     props: {
         address: {
             type: Object,
@@ -61,6 +58,9 @@ export default {
         }
     },
     methods: {
+        test() {
+            console.log("teste")
+        },
         changePlace(p) {
           this.plac = p
         },

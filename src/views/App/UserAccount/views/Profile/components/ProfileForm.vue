@@ -16,14 +16,12 @@
             id="cpf"
             label="Cpf"
             v-model="form.cpf"
-            v-mask="'###.###.###-##'"
             required
         />
         <base-input
             id="telefone"
             label="Telefone"
             v-model="form.phone"
-            v-mask="'(##) # ####-####'"
             required
         />
         <base-button

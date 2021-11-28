@@ -1,5 +1,5 @@
 <template>
-    <button :class="['btn', variantClass]" :disabled="disabled || loading">
+    <button type="button" :class="['btn', variantClass]" :disabled="disabled || loading">
         <div class="spinner-border spinner-border-sm" role="status" v-if="loading">
             <span class="visually-hidden">Loading...</span>
         </div>
@@ -36,6 +36,7 @@ export default {
             default: false,
         },
     },
+    emits: [],
     computed: {
         variantClass() {
             if (!this.variant) {

@@ -19,14 +19,14 @@ const isPopup = function (popupItem, elements) {
 const clickHandler = "ontouchstart" in document.documentElement ? "ontouchstart" : "click"
 
 export default {
-  beforeMount: (el, binding, vNode) => {
+  beforeMount: (el, binding) => {
     function handler(e) {
       console.log({ contain: el.contains(e.target) })
 
-      if (!vNode.context) {return}
+      if (!binding.instance) {return}
       const elements = e.path || (e.composedPath && e.composedPath())
       elements && elements.length > 0 && elements.unshift(e.target)
-      if (el.contains(e.target) || isPopup(vNode.context.popupItem, elements)) {return}
+      if (el.contains(e.target) || isPopup(binding.instance.popupItem, elements)) {return}
 
       el.__vueClickOutside__.callback(e)
     }
@@ -38,10 +38,10 @@ export default {
 
     document.addEventListener(clickHandler, handler)
   },
-  update: function(el, binding) {
+  updated: function(el, binding) {
     el.__vueClickOutside__.callback = binding.value
   },
-  unbind(el) {
+  unmounted(el) {
     el.__vueClickOutside__ && document.removeEventListener(clickHandler, el.__vueClickOutside__.handler)
     delete el.__vueClickOutside__
   },

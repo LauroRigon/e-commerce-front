@@ -18,7 +18,7 @@
             placeholder="Digite seu cep"
             type="text"
             v-model="form.cep"
-            v-mask="'#####-###'"
+            v-maska="'#####-###'"
             :errors="errors['cep']"
         />
 
@@ -133,6 +133,7 @@ export default {
     },
     watch: {
         "form.cep"(cep) {
+            console.log(cep)
             if (this.isCepValid) {
                 this.fetchCepInfo(this.clearCep(cep))
             }
