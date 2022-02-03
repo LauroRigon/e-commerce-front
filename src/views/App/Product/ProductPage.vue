@@ -38,7 +38,7 @@
 import { fetchProduct } from "@/services/ProductService"
 import AppLoading from "../../../components/AppLoading"
 import BaseInput from "@/components/Base/BaseInput"
-import { formatMoney } from "@/helpers/currency"
+import { formatMoney } from "@/helpers/currency.ts"
 
 export default {
     name: "ProductPage",

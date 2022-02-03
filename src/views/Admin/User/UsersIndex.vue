@@ -24,55 +24,66 @@
             </div>
         </transition>
 
-        <app-quick-details :open="!!userDetailed" @close="userDetailed = null">
-            <user-details :user="userDetailed"/>
+        <app-quick-details :open="!!userDetailed" @close="closeDetails">
+            <user-details v-if="userDetailed" :user="userDetailed"/>
         </app-quick-details>
     </div>
 </template>
 
-<script>
-import BaseTable from "@/components/Base/BaseTable"
-import AppPagination from "@/components/AppPagination"
-import AppLoading from "@/components/AppLoading"
-import { fetchUsers } from "@/services/admin/UsersService"
-import ListingIndex from "@/mixins/ListingIndex"
-import AppQuickDetails from "@/components/AppQuickDetails"
-import UserDetails from "@/views/Admin/User/components/UserDetails"
+<script lang="ts">
+// import BaseTable from "@/components/Base/BaseTable"
+// import AppPagination from "@/components/AppPagination"
+// import AppLoading from "@/components/AppLoading"
+// import { fetchUsers } from "@/services/admin/UsersService"
+// import ListingIndex from "@/mixins/ListingIndex"
+// import AppQuickDetails from "@/components/AppQuickDetails"
+// import UserDetails from "@/views/Admin/User/components/UserDetails"
+import { defineComponent, SetupContext } from "vue"
 
-export default {
-    components: { UserDetails, AppQuickDetails, BaseTable, AppPagination, AppLoading },
-    mixins: [ ListingIndex ],
-    data() {
-        return {
-            userDetailed: null,
-            table: {
-                headers: [
-                    {
-                        name: "Nome",
-                        key: "name",
-                    },
-                    {
-                        name: "E-mail",
-                        key: "email",
-                    },
-                    {
-                        name: "Ações",
-                        key: "actions",
-                    },
-                ],
-            },
-            itemDetailed: null,
-        }
+export default defineComponent({
+    setup(props, context: SetupContext) {
+
     },
-    methods: {
-        async getRequest(q) {
-            return fetchUsers(q)
-        },
-        openDetails(user) {
-            this.userDetailed = user
-        },
-    },
-}
+})
+
+// export default {
+//     components: { UserDetails, AppQuickDetails, BaseTable, AppPagination, AppLoading },
+//     mixins: [ ListingIndex ],
+//     data() {
+//         return {
+//             userDetailed: null,
+//             table: {
+//                 headers: [
+//                     {
+//                         name: "Nome",
+//                         key: "name",
+//                     },
+//                     {
+//                         name: "E-mail",
+//                         key: "email",
+//                     },
+//                     {
+//                         name: "Ações",
+//                         key: "actions",
+//                     },
+//                 ],
+//             },
+//             itemDetailed: null,
+//         }
+//     },
+//     methods: {
+//         async getRequest(q) {
+//             return fetchUsers(q)
+//         },
+//         openDetails(user) {
+//             this.userDetailed = user
+//         },
+//         closeDetails() {
+//             console.log("aaa")
+//             this.userDetailed = null
+//         },
+//     },
+// }
 </script>
 
 <style lang="scss">

@@ -2,7 +2,7 @@
     <router-view/>
 </template>
 
-<script>
+<script lang="ts">
 
 export default {
     created() {
@@ -16,7 +16,7 @@ export default {
     min-height: 100vh;
 }
 
-.fade-enter,
+.fade-enter-from,
 .fade-leave-to {
     opacity: 0;
 }

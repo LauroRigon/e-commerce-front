@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { formatMoney } from "@/helpers/currency"
+import { formatMoney } from "@/helpers/currency.ts"
 
 export default {
     props: {

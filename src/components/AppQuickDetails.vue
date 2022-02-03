@@ -9,8 +9,12 @@
     </transition>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, SetupContext } from "vue"
+import BaseTable from "@/components/Base/BaseTable.vue"
+
+export default defineComponent({
+    components: { BaseTable },
     name: "AppQuickDetails",
     props: {
         open: {
@@ -18,12 +22,15 @@ export default {
             default: false,
         },
     },
-    methods: {
-        close() {
-            this.$emit("close")
-        },
+    emit: ["close"],
+    setup(props, context: SetupContext) {
+        function close() {
+            context.emit("close")
+        }
+
+        return { close }
     },
-}
+})
 </script>
 
 <style scoped lang="scss">
@@ -56,7 +63,7 @@ export default {
     }
 }
 
-.from-right-enter,
+.from-right-enter-from,
 .from-right-leave-to {
     transform: translateX(100%);
 }
